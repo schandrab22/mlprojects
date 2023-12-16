@@ -13,7 +13,7 @@ from src.utils import save_object
 
 @dataclass
 class DataTransformationConfig:
-    pre_processor_obj_file_path = os.path.join('artifact','preporcesor.pkl')
+    pre_processor_obj_file_path = os.path.join('artifact','preprocesor.pkl')
 
 class DataTransformation:
     def __init__(self):
@@ -38,7 +38,7 @@ class DataTransformation:
             categorical_pipeline = Pipeline(
                 steps=[
                     ("imputer", SimpleImputer(strategy="most_frequent")),
-                    ("one_hot_encoder", OneHotEncoder()),
+                    ("one_hot_encoder", OneHotEncoder(handle_unknown='ignore')),
                     ("scaler", StandardScaler(with_mean=False))
                 ]
             )
@@ -93,12 +93,6 @@ class DataTransformation:
             return(
                 train_arr, test_arr, self.data_transformation_config.pre_processor_obj_file_path
             )
-
-
-
-
-
-
 
 
         except Exception as e:
